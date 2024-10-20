@@ -89,32 +89,37 @@ class TuringMachineSimulator(tk.Tk):
         self.initial_state_entry = tk.Entry(self)
         self.initial_state_entry.grid(row=2, column=1)
 
+        # Reglas de la maquina
+        '''tk.Label(self, text="Reglas de Transicion:").grid(row=3, column=0, sticky="w")
+        self.transitions_entry = tk.Text(self,height = 6, width = 30)
+        self.transitions_entry.grid(row=3, column=1)'''
+
         # Estados de aceptación
-        tk.Label(self, text="Estados de aceptación:").grid(row=3, column=0, sticky="w")
+        tk.Label(self, text="Estados de aceptación:").grid(row=4, column=0, sticky="w")
         self.accept_states_entry = tk.Entry(self)
-        self.accept_states_entry.grid(row=3, column=1)
+        self.accept_states_entry.grid(row=4, column=1)
 
         # Estados de rechazo
-        tk.Label(self, text="Estados de rechazo:").grid(row=4, column=0, sticky="w")
+        '''tk.Label(self, text="Estados de rechazo:").grid(row=5, column=0, sticky="w")
         self.reject_states_entry = tk.Entry(self)
-        self.reject_states_entry.grid(row=4, column=1)
+        self.reject_states_entry.grid(row=5, column=1)'''
 
         # Cinta
-        tk.Label(self, text="Entrada de cinta:").grid(row=5, column=0, sticky="w")
+        tk.Label(self, text="Entrada de cinta:").grid(row=6, column=0, sticky="w")
         self.tape_entry = tk.Entry(self)
-        self.tape_entry.grid(row=5, column=1)
+        self.tape_entry.grid(row=6, column=1)
 
         # Botón para iniciar la simulación
         self.start_button = tk.Button(self, text="Iniciar Simulación", command=self.start_simulation)
-        self.start_button.grid(row=6, column=0, columnspan=2)
+        self.start_button.grid(row=7, column=0, columnspan=2)
 
         # Área de visualización de la cinta
         self.tape_label = tk.Label(self, text="Cinta: ")
-        self.tape_label.grid(row=7, column=0, columnspan=2)
+        self.tape_label.grid(row=8, column=0, columnspan=2)
 
         # Botón de paso a paso
         self.paso_button = tk.Button(self, text="Paso a Paso", command=self.paso_simulation)
-        self.paso_button.grid(row=8, column=0, columnspan=2)
+        self.paso_button.grid(row=9, column=0, columnspan=2)
         self.paso_button.config(state=tk.DISABLED)
 
     def start_simulation(self):
@@ -123,9 +128,10 @@ class TuringMachineSimulator(tk.Tk):
         self.alphabet = self.alphabet_entry.get().split(',')
         self.initial_state = self.initial_state_entry.get()
         self.accept_states = self.accept_states_entry.get().split(',')
-        self.reject_states = self.reject_states_entry.get().split(',')
+        #self.reject_states = self.reject_states_entry.get().split(',')
         
         # Definir las transiciones
+        #self.transitions = self.transitions_entry.get("1.0",'end-1c').split('\n')
         self.transitions = {
             ('q0', 'a'): ('q0', '1', 'R'),
             ('q0', ' '): ('q1', ' ', 'L'),
@@ -137,6 +143,9 @@ class TuringMachineSimulator(tk.Tk):
             # Agregar más transiciones aquí
         }
         
+        for x in self.transitions:
+            print(x)
+
         # Inicializar la cinta
         input_string = self.tape_entry.get()+'                              '
         
